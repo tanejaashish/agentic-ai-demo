@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: chromadb
+  namespace: agentic-ai
+  labels:
+    app: chromadb
+    component: vectordb
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: chromadb
+  template:
+    metadata:
+      labels:
+        app: chromadb
+        component: vectordb
+    spec:
+      containers:
+      - name: chromadb
+        image: chromadb/chroma:latest
+        ports:
+        - containerPort: 8000
+          name: http
+        resources:
+          requests:
+            memory: "1Gi"
+            cpu: "500m"
+          limits:
+            memory: "2Gi"
+            cpu: "1000m"
+        volumeMounts:
+        - name: chromadb-data
+          mountPath: /chroma/chroma
+      volumes:
+      - name: chromadb-data
+        persistentVolumeClaim:
+          claimName: chromadb-data-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: chromadb
+  namespace: agentic-ai
+  labels:
+    app: chromadb
+spec:
+  type: ClusterIP
+  ports:
+  - port: 8000
+    targetPort: 8000
+    protocol: TCP
+    name: http
+  selector:
+    app: chromadb
