@@ -1,0 +1,101 @@
+/* AgentStatusPanel Component Styles */
+
+.agent-status-panel {
+  padding: 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.panel-header h1 {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #1f2937;
+  margin: 0;
+}
+
+.refresh-btn,
+.train-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: #8b5cf6;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.refresh-btn:hover,
+.train-btn:hover {
+  background: #7c3aed;
+}
+
+.agent-loading {
+  text-align: center;
+  padding: 3rem;
+  color: #6b7280;
+}
+
+.agents-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 1.5rem;
+}
+
+.agent-detail-card {
+  background: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.agent-detail-card h2 {
+  color: #1f2937;
+  margin: 0 0 1rem 0;
+}
+
+.agent-stats {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.stat-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.75rem;
+  background: #f9fafb;
+  border-radius: 6px;
+}
+
+.stat-item span {
+  color: #6b7280;
+  font-size: 0.875rem;
+}
+
+.stat-item strong {
+  color: #1f2937;
+  font-size: 1rem;
+}
+
+@media (max-width: 768px) {
+  .agent-status-panel {
+    padding: 1rem;
+  }
+
+  .agents-grid {
+    grid-template-columns: 1fr;
+  }
+}

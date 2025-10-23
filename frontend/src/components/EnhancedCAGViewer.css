@@ -1,0 +1,268 @@
+/* EnhancedCAGViewer Component Styles */
+
+.enhanced-cag-viewer {
+  background: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  margin-bottom: 1.5rem;
+}
+
+.cag-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.cag-header h2 {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #1f2937;
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.confidence-badge {
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  color: white;
+  font-weight: 600;
+}
+
+/* Confidence Progression */
+.confidence-progression {
+  margin-bottom: 2rem;
+}
+
+.confidence-progression h3 {
+  color: #1f2937;
+  margin-bottom: 1rem;
+  font-size: 1.125rem;
+}
+
+.progression-track {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  overflow-x: auto;
+  padding: 1rem 0;
+}
+
+.progression-point {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  position: relative;
+}
+
+.progression-point:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  right: -2rem;
+  top: 20px;
+  width: 2rem;
+  height: 2px;
+  background: #d1d5db;
+}
+
+.point-marker {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: bold;
+  font-size: 0.875rem;
+}
+
+.progression-point span {
+  font-size: 0.75rem;
+  color: #6b7280;
+}
+
+/* Critics Section */
+.critics-section {
+  margin-bottom: 2rem;
+}
+
+.critics-section h3 {
+  color: #1f2937;
+  margin-bottom: 1rem;
+  font-size: 1.125rem;
+}
+
+.critics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1rem;
+}
+
+.critic-card {
+  background: #f9fafb;
+  border-radius: 8px;
+  padding: 1.25rem;
+  border: 1px solid #e5e7eb;
+}
+
+.critic-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.critic-icon {
+  font-size: 1.5rem;
+  color: #8b5cf6;
+}
+
+.critic-header h4 {
+  margin: 0 0 0.25rem 0;
+  color: #1f2937;
+  font-size: 1rem;
+}
+
+.critic-score {
+  font-size: 0.875rem;
+  color: #6b7280;
+}
+
+.critic-score span {
+  font-weight: bold;
+}
+
+.critic-issues,
+.critic-suggestions {
+  margin-top: 1rem;
+}
+
+.critic-issues strong,
+.critic-suggestions strong {
+  color: #1f2937;
+  font-size: 0.875rem;
+}
+
+.critic-issues ul,
+.critic-suggestions ul {
+  margin: 0.5rem 0 0 0;
+  padding-left: 1.5rem;
+}
+
+.critic-issues li,
+.critic-suggestions li {
+  color: #6b7280;
+  font-size: 0.875rem;
+  margin-bottom: 0.25rem;
+}
+
+/* Refinement Stages */
+.refinements-section h3 {
+  color: #1f2937;
+  margin-bottom: 1rem;
+  font-size: 1.125rem;
+}
+
+.refinements-timeline {
+  position: relative;
+  padding-left: 2rem;
+}
+
+.refinements-timeline::before {
+  content: '';
+  position: absolute;
+  left: 15px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: #d1d5db;
+}
+
+.refinement-stage {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  position: relative;
+}
+
+.stage-marker {
+  position: absolute;
+  left: -2rem;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #8b5cf6;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 0.875rem;
+  z-index: 1;
+}
+
+.stage-content {
+  flex: 1;
+  background: #f9fafb;
+  border-radius: 8px;
+  padding: 1rem;
+  border: 1px solid #e5e7eb;
+}
+
+.stage-content h4 {
+  color: #1f2937;
+  margin: 0 0 0.5rem 0;
+  font-size: 1rem;
+}
+
+.stage-content p {
+  color: #6b7280;
+  margin: 0;
+  font-size: 0.875rem;
+}
+
+.improvements-list {
+  margin-top: 0.75rem;
+}
+
+.improvements-list strong {
+  color: #1f2937;
+  font-size: 0.875rem;
+}
+
+.improvements-list ul {
+  margin: 0.5rem 0 0 0;
+  padding-left: 1.5rem;
+}
+
+.improvements-list li {
+  color: #6b7280;
+  font-size: 0.875rem;
+  margin-bottom: 0.25rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .cag-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .progression-track {
+    gap: 1rem;
+  }
+
+  .progression-point:not(:last-child)::after {
+    width: 1rem;
+    right: -1rem;
+  }
+
+  .critics-grid {
+    grid-template-columns: 1fr;
+  }
+}
