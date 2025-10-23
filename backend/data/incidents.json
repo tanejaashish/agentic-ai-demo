@@ -1,0 +1,18 @@
+[
+    {
+        "id": 1,
+        "title": "Database Connection Timeout",
+        "description": "Application unable to connect to production database",
+        "severity": "high",
+        "status": "resolved",
+        "solution": "Increased connection pool size and optimized query performance"
+    },
+    {
+        "id": 2,
+        "title": "Memory Leak in Service",
+        "description": "Gradual memory increase in microservice causing crashes",
+        "severity": "critical",
+        "status": "resolved",
+        "solution": "Fixed resource cleanup in background workers"
+    }
+]

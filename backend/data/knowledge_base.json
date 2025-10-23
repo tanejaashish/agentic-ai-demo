@@ -1,0 +1,16 @@
+{
+    "solutions": [
+        {
+            "problem": "database timeout",
+            "keywords": ["connection", "timeout", "database", "pool"],
+            "solution": "Check connection pool settings, verify network connectivity, optimize queries",
+            "tags": ["database", "performance"]
+        },
+        {
+            "problem": "memory leak",
+            "keywords": ["memory", "leak", "crash", "oom"],
+            "solution": "Profile memory usage, check for unclosed resources, implement proper cleanup",
+            "tags": ["memory", "performance", "debugging"]
+        }
+    ]
+}

@@ -1,0 +1,32 @@
+{
+  "incidents": [
+    {
+      "id": "INC001",
+      "title": "Database Connection Pool Exhausted",
+      "description": "Connection pool exhaustion during peak hours",
+      "priority": "High",
+      "category": "Database"
+    },
+    {
+      "id": "INC002",
+      "title": "API Gateway 502 Errors",
+      "description": "Gateway returns 502 errors",
+      "priority": "Critical",
+      "category": "Network"
+    }
+  ],
+  "knowledge_base": [
+    {
+      "id": "KB001",
+      "title": "Database Troubleshooting",
+      "category": "Database",
+      "resolution": "1. Check connections\n2. Increase pool size"
+    },
+    {
+      "id": "KB002",
+      "title": "API Gateway Guide",
+      "category": "Network",
+      "resolution": "1. Check upstream\n2. Increase timeouts"
+    }
+  ]
+}

@@ -1,0 +1,248 @@
+{
+  "incidents": [
+    {
+      "id": "INC001",
+      "title": "Database connection timeout in production",
+      "description": "Users are experiencing intermittent timeout errors when accessing the customer portal. The error message indicates 'Connection pool exhausted' and occurs during peak hours.",
+      "category": "Database",
+      "priority": "High",
+      "error_message": "java.sql.SQLException: Cannot get a connection, pool exhausted",
+      "affected_systems": ["Customer Portal", "MySQL Database", "Connection Pool"],
+      "resolution": "1. Increase connection pool size from 50 to 100\n2. Implement connection timeout of 30 seconds\n3. Add connection validation query\n4. Monitor pool metrics",
+      "root_cause": "Connection pool was undersized for current traffic volume",
+      "prevention": "Implement auto-scaling for connection pools based on traffic patterns",
+      "resolution_time": 45,
+      "team": "Database Team"
+    },
+    {
+      "id": "INC002",
+      "title": "API Gateway returning 502 Bad Gateway errors",
+      "description": "Multiple services behind the API Gateway are unreachable. Health checks are failing and upstream connection errors are logged.",
+      "category": "Network",
+      "priority": "Critical",
+      "error_message": "502 Bad Gateway - upstream connection failed",
+      "affected_systems": ["API Gateway", "Microservices", "Load Balancer"],
+      "resolution": "1. Restart affected microservices\n2. Clear API Gateway cache\n3. Update service discovery configuration\n4. Implement circuit breaker pattern",
+      "root_cause": "Service discovery cache became stale after deployment",
+      "prevention": "Implement automatic cache invalidation on service deployment",
+      "resolution_time": 30,
+      "team": "Platform Team"
+    },
+    {
+      "id": "INC003",
+      "title": "Memory leak in payment processing service",
+      "description": "The payment service is consuming increasing amounts of memory over time, requiring daily restarts. Heap dumps show retained objects from transaction processing.",
+      "category": "Application",
+      "priority": "High",
+      "error_message": "java.lang.OutOfMemoryError: Java heap space",
+      "affected_systems": ["Payment Service", "JVM", "Transaction Queue"],
+      "resolution": "1. Identify leak using heap dump analysis\n2. Fix object retention in transaction cache\n3. Implement proper cache eviction\n4. Deploy patched version",
+      "root_cause": "Transaction objects not being properly released from cache",
+      "prevention": "Add memory leak detection to CI/CD pipeline",
+      "resolution_time": 120,
+      "team": "Development Team"
+    },
+    {
+      "id": "INC004",
+      "title": "SSL certificate expired on production domain",
+      "description": "The main website is showing SSL certificate warnings. The certificate expired yesterday and auto-renewal failed.",
+      "category": "Security",
+      "priority": "Critical",
+      "error_message": "NET::ERR_CERT_DATE_INVALID",
+      "affected_systems": ["Web Server", "SSL Certificate", "CDN"],
+      "resolution": "1. Generate new SSL certificate\n2. Update certificate on all web servers\n3. Clear CDN cache\n4. Verify certificate chain",
+      "root_cause": "Auto-renewal script failed due to API authentication changes",
+      "prevention": "Implement certificate expiry monitoring and alerts at 30, 14, and 7 days",
+      "resolution_time": 15,
+      "team": "Security Team"
+    },
+    {
+      "id": "INC005",
+      "title": "Disk space full on logging server",
+      "description": "The centralized logging server has run out of disk space. New logs are being rejected and monitoring is impacted.",
+      "category": "Infrastructure",
+      "priority": "Medium",
+      "error_message": "No space left on device",
+      "affected_systems": ["Logging Server", "ElasticSearch", "Monitoring"],
+      "resolution": "1. Archive old logs to cold storage\n2. Implement log rotation policy\n3. Increase disk space to 2TB\n4. Set up disk usage alerts at 80%",
+      "root_cause": "Log retention policy was not enforced",
+      "prevention": "Automate log archival and implement storage quotas",
+      "resolution_time": 60,
+      "team": "Infrastructure Team"
+    },
+    {
+      "id": "INC006",
+      "title": "Authentication service intermittent failures",
+      "description": "Users randomly cannot login. The authentication service is returning 500 errors sporadically.",
+      "category": "Authentication",
+      "priority": "High",
+      "error_message": "Internal Server Error: Failed to validate token",
+      "affected_systems": ["Auth Service", "Redis Cache", "LDAP"],
+      "resolution": "1. Identify Redis connection timeout issue\n2. Increase Redis connection timeout\n3. Implement retry logic\n4. Add fallback to database",
+      "root_cause": "Network latency spikes causing Redis timeouts",
+      "prevention": "Implement resilient caching with fallback mechanisms",
+      "resolution_time": 50,
+      "team": "Identity Team"
+    },
+    {
+      "id": "INC007",
+      "title": "Batch job failing with data corruption errors",
+      "description": "Nightly ETL batch job is failing at data transformation step. CSV files appear to have encoding issues.",
+      "category": "Data Processing",
+      "priority": "Medium",
+      "error_message": "UnicodeDecodeError: 'utf-8' codec can't decode byte",
+      "affected_systems": ["ETL Pipeline", "Data Warehouse", "Reporting"],
+      "resolution": "1. Identify files with incorrect encoding\n2. Convert files to UTF-8\n3. Add encoding detection to pipeline\n4. Reprocess failed batches",
+      "root_cause": "Source system changed export encoding without notification",
+      "prevention": "Add data quality checks at ingestion point",
+      "resolution_time": 90,
+      "team": "Data Team"
+    },
+    {
+      "id": "INC008",
+      "title": "Mobile app crashes on startup after update",
+      "description": "iOS app version 3.2.1 crashes immediately after launch. Crash reports show null pointer exception in initialization.",
+      "category": "Mobile",
+      "priority": "Critical",
+      "error_message": "Fatal Exception: NSInvalidArgumentException",
+      "affected_systems": ["iOS App", "API Client", "Config Service"],
+      "resolution": "1. Identify missing configuration file\n2. Deploy hotfix with default config\n3. Update app store submission\n4. Notify affected users",
+      "root_cause": "Configuration file not included in build",
+      "prevention": "Add configuration validation to build pipeline",
+      "resolution_time": 25,
+      "team": "Mobile Team"
+    },
+    {
+      "id": "INC009",
+      "title": "Search functionality returning no results",
+      "description": "The search feature on the website returns empty results for all queries. ElasticSearch cluster appears healthy.",
+      "category": "Search",
+      "priority": "High",
+      "error_message": "No results found",
+      "affected_systems": ["Search Service", "ElasticSearch", "Website"],
+      "resolution": "1. Check index mapping changes\n2. Reindex data with correct mapping\n3. Update search query builder\n4. Clear query cache",
+      "root_cause": "Index mapping changed during deployment",
+      "prevention": "Version index mappings and test before deployment",
+      "resolution_time": 40,
+      "team": "Search Team"
+    },
+    {
+      "id": "INC010",
+      "title": "Email notifications not being delivered",
+      "description": "Transactional emails are queued but not being sent. SMTP server is responding but emails are stuck in queue.",
+      "category": "Communication",
+      "priority": "Medium",
+      "error_message": "SMTP timeout after MAIL FROM",
+      "affected_systems": ["Email Service", "SMTP Server", "Message Queue"],
+      "resolution": "1. Check SMTP authentication\n2. Update email service credentials\n3. Flush email queue\n4. Process backlog with rate limiting",
+      "root_cause": "SMTP credentials expired",
+      "prevention": "Implement credential rotation notifications",
+      "resolution_time": 35,
+      "team": "Communications Team"
+    }
+  ],
+  "knowledge_base": [
+    {
+      "id": "KB001",
+      "title": "Connection Pool Best Practices",
+      "category": "Database",
+      "content": "Configure connection pools with: minimum size = expected concurrent connections, maximum size = peak load * 1.2, timeout = 30 seconds, validation query = SELECT 1, test on borrow = true",
+      "tags": ["database", "connection", "performance", "pool"]
+    },
+    {
+      "id": "KB002",
+      "title": "API Gateway Troubleshooting Guide",
+      "category": "Network",
+      "content": "Common issues: 1) Check upstream service health 2) Verify service discovery 3) Clear gateway cache 4) Review rate limits 5) Check SSL certificates 6) Validate routing rules",
+      "tags": ["api", "gateway", "network", "troubleshooting"]
+    },
+    {
+      "id": "KB003",
+      "title": "Memory Leak Detection Process",
+      "category": "Application",
+      "content": "Steps: 1) Enable heap dumps on OOM 2) Use profiler to analyze heap 3) Look for growing collections 4) Check for unclosed resources 5) Review singleton patterns 6) Validate cache eviction",
+      "tags": ["memory", "java", "debugging", "performance"]
+    },
+    {
+      "id": "KB004",
+      "title": "SSL Certificate Management",
+      "category": "Security",
+      "content": "Certificate lifecycle: 1) Monitor expiry 90 days ahead 2) Auto-renew 30 days before expiry 3) Test renewal in staging 4) Validate certificate chain 5) Update all endpoints 6) Clear CDN cache",
+      "tags": ["ssl", "security", "certificate", "https"]
+    },
+    {
+      "id": "KB005",
+      "title": "Log Management Strategy",
+      "category": "Infrastructure",
+      "content": "Implement: hot storage (7 days), warm storage (30 days), cold archive (1 year). Set rotation at 10GB or daily. Compress old logs. Alert at 80% disk usage. Use dedicated log partition.",
+      "tags": ["logging", "storage", "infrastructure", "monitoring"]
+    },
+    {
+      "id": "KB006",
+      "title": "Redis High Availability Setup",
+      "category": "Cache",
+      "content": "Configure Redis Sentinel with 3 nodes, enable persistence, set appropriate timeout values, implement connection pooling, add retry logic with exponential backoff, monitor memory usage",
+      "tags": ["redis", "cache", "high-availability", "resilience"]
+    },
+    {
+      "id": "KB007",
+      "title": "Data Pipeline Error Handling",
+      "category": "Data Processing",
+      "content": "Implement: schema validation, encoding detection, data quality checks, dead letter queues, retry mechanisms, alerting on failures, data lineage tracking, rollback procedures",
+      "tags": ["etl", "data", "pipeline", "error-handling"]
+    },
+    {
+      "id": "KB008",
+      "title": "Mobile App Deployment Checklist",
+      "category": "Mobile",
+      "content": "Pre-deployment: test on all OS versions, verify configurations, check API compatibility, test offline mode, validate deep links, review crash reporting, prepare rollback plan",
+      "tags": ["mobile", "deployment", "ios", "android"]
+    },
+    {
+      "id": "KB009",
+      "title": "ElasticSearch Index Management",
+      "category": "Search",
+      "content": "Best practices: use index templates, implement index lifecycle policies, version mappings, test with subset before reindexing, use aliases for zero-downtime updates, monitor cluster health",
+      "tags": ["elasticsearch", "search", "indexing", "data"]
+    },
+    {
+      "id": "KB010",
+      "title": "Email Service Configuration",
+      "category": "Communication",
+      "content": "Setup: configure SPF/DKIM/DMARC, implement rate limiting, use dedicated IPs, monitor reputation, implement retry logic, handle bounces, validate addresses, queue management",
+      "tags": ["email", "smtp", "communication", "delivery"]
+    }
+  ],
+  "feedback_data": [
+    {
+      "incident_id": "INC001",
+      "rating": 5,
+      "helpful": true,
+      "comments": "Solution worked perfectly. Connection pool adjustment resolved the issue."
+    },
+    {
+      "incident_id": "INC002",
+      "rating": 4,
+      "helpful": true,
+      "comments": "Good solution but needed additional context about circuit breaker configuration."
+    },
+    {
+      "incident_id": "INC003",
+      "rating": 5,
+      "helpful": true,
+      "comments": "Heap dump analysis steps were very detailed and helpful."
+    },
+    {
+      "incident_id": "INC004",
+      "rating": 5,
+      "helpful": true,
+      "comments": "Quick resolution. Certificate monitoring recommendation was valuable."
+    },
+    {
+      "incident_id": "INC005",
+      "rating": 3,
+      "helpful": true,
+      "comments": "Solution worked but took longer than expected to implement."
+    }
+  ]
+}
