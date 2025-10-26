@@ -43,11 +43,11 @@ class Settings(BaseSettings):
     CACHE_TTL: int = 3600
     
     # PostgreSQL Configuration (Optional)
-    POSTGRES_HOST: str = "localhost"
+    POSTGRES_HOST: str = "postgres"
     POSTGRES_PORT: int = 5432
-    POSTGRES_DB: str = "incidents"
-    POSTGRES_USER: str = "postgres"
-    POSTGRES_PASSWORD: str = "123456"
+    POSTGRES_DB: str = "agentic"
+    POSTGRES_USER: str = "agentic"
+    POSTGRES_PASSWORD: str = "agentic123"
     
     # RAG Configuration
     RAG_CHUNK_SIZE: int = 512

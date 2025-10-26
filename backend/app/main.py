@@ -44,6 +44,7 @@ from app.agents.orchestrator import AgentOrchestrator
 from app.services.vector_store import VectorStoreService
 from app.services.llm_service import LLMService
 from app.services.cache_service import CacheService
+from app.routes import graph
 from app.models.incident import Incident, IncidentResponse, FeedbackRequest
 from app.api import incidents, analytics, agents, knowledge
 from app.config import settings
@@ -155,6 +156,7 @@ app.include_router(incidents.router, prefix="/api/incidents", tags=["Incidents"]
 app.include_router(analytics.router, prefix="/api/analytics", tags=["Analytics"])
 app.include_router(agents.router, prefix="/api/agents", tags=["Agents"])
 app.include_router(knowledge.router, prefix="/api/knowledge", tags=["Knowledge Base"])
+app.include_router(graph.router)
 
 @app.get("/")
 async def root():

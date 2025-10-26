@@ -9,7 +9,7 @@ WORKDIR /app
 COPY package*.json ./
 
 # Install dependencies
-RUN npm install
+RUN npm install --legacy-peer-deps
 #RUN npm ci --only=production
 
 # Copy application files
@@ -20,6 +20,13 @@ COPY . .
 
 # Expose port
 EXPOSE 3000
+
+# Set environment variables for build
+ENV REACT_APP_API_URL=http://localhost:8000
+ENV REACT_APP_WS_URL=ws://localhost:8000
+ENV NODE_ENV=development
+ENV CI=false
+ENV SKIP_PREFLIGHT_CHECK=true
 
 # Health check
 HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \

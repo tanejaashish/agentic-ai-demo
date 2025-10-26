@@ -19,7 +19,7 @@ logger = logging.getLogger(__name__)
 DB_HOST = os.environ.get('POSTGRES_HOST', 'postgres')
 DB_USER = os.environ.get('POSTGRES_USER', 'agentic')
 DB_PASS = os.environ.get('POSTGRES_PASSWORD', 'agentic123')
-DB_NAME = os.environ.get('POSTGRES_DB', 'incidents')
+DB_NAME = os.environ.get('POSTGRES_DB', 'agentic')
 CHROMA_HOST = os.environ.get('CHROMA_HOST', 'chromadb')
 
 def wait_for_service(service_name, host, max_retries=30):

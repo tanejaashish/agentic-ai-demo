@@ -5,7 +5,8 @@
 
 import axios from 'axios';
 
-const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:8000';
+//const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:8000';
+const API_BASE_URL = process.env.REACT_APP_API_URL || '/api';
 
 // Create axios instance with default config
 const api = axios.create({
@@ -13,7 +14,7 @@ const api = axios.create({
   headers: {
     'Content-Type': 'application/json',
   },
-  timeout: 30000, // 30 second timeout
+  timeout: 120000, // 30 second timeout
 });
 
 // Request interceptor for logging
@@ -66,8 +67,15 @@ export const incidentService = {
   },
 
   // Submit feedback for incident
+  //submitFeedback: async (incidentId, feedbackData) => {
+  //  const response = await api.post(`/api/incidents/${incidentId}/feedback`, feedbackData);
+  //  return response.data;
+  //},
   submitFeedback: async (incidentId, feedbackData) => {
-    const response = await api.post(`/api/incidents/${incidentId}/feedback`, feedbackData);
+    const response = await api.post(`/api/feedback`, {
+      incident_id: incidentId,
+      ...feedbackData
+    });
     return response.data;
   },
 

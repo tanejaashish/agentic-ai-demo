@@ -1,7 +1,7 @@
-version: '3.8'
+#version: '3.8'
 
 services:
-  # Ollama for running LLM locally
+  # Ollama for running LLM locally - FIXED: Added command to pull model
   ollama:
     image: ollama/ollama:latest
     container_name: ollama
@@ -22,9 +22,13 @@ services:
           memory: 8G
     networks:
       - agentic-network
-    #command: >
-      #sh -c "ollama serve & sleep 10 && ollama pull llama3.2:3b && tail -f /dev/null"
-    #command: serve
+    command: serve
+    #>
+    #  sh -c "
+    #    echo 'Pulling Ollama model...' &&
+    #    ollama pull llama3.2:3b || true &&
+    #    /bin/ollama serve
+    #  "
 
   # ChromaDB for vector storage
   chromadb:
@@ -72,6 +76,11 @@ services:
     ports:
       - "8000:8000"
     environment:
+      # Add Postgres ENVs to match the postgres service and fix DB connection
+      - POSTGRES_HOST=postgres
+      - POSTGRES_DB=agentic
+      - POSTGRES_USER=agentic
+      - POSTGRES_PASSWORD=agentic123
       - OLLAMA_HOST=http://ollama:11434
       - CHROMA_HOST=http://chromadb:8000
       - REDIS_HOST=redis
@@ -86,19 +95,20 @@ services:
       - ollama
       - chromadb
       - redis
+      - postgres
     networks:
       - agentic-network
     command: >
       sh -c "
         echo 'Waiting for services...' &&
-        sleep 20 &&
+        sleep 45 &&
         echo 'Initializing data...' &&
         python /app/scripts/init_data.py &&
         echo 'Starting server...' &&
         uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
       "
 
-  # Frontend Web Interface
+  # Frontend Web Interface - FIXED: Reverted URL to use internal Docker hostname
   frontend:
     build:
       context: ./frontend
@@ -107,8 +117,11 @@ services:
     ports:
       - "3000:3000"
     environment:
-      - REACT_APP_API_URL=http://localhost:8000
-      - REACT_APP_WS_URL=ws://localhost:8000
+      - REACT_APP_API_URL=http://localhost:8000  # REVERTED: Must use internal hostname for Webpack proxy to work
+      - REACT_APP_WS_URL=ws://localhost:8000    # REVERTED: Must use internal hostname
+      - NODE_ENV=development
+      - CI=false
+      - SKIP_PREFLIGHT_CHECK=true
     volumes:
       - ./frontend:/app
       - /app/node_modules
@@ -116,7 +129,8 @@ services:
       - backend
     networks:
       - agentic-network
-    command: npm start
+    stdin_open: true
+    tty: true
 
   # Monitoring Dashboard
   monitoring:
@@ -127,7 +141,7 @@ services:
     ports:
       - "3001:3001"
     environment:
-      - API_URL=http://backend:8000
+      - API_URL=http://localhost:8000
       - REDIS_HOST=redis
     depends_on:
       - backend
@@ -135,17 +149,16 @@ services:
     networks:
       - agentic-network
 
-  # PostgreSQL for persistent storage (optional, for production-like demo)
+  # PostgreSQL for persistent storage
   postgres:
     image: postgres:15-alpine
     container_name: postgres
     environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=123456
-      - POSTGRES_DB=incidents
+      - POSTGRES_USER=agentic
+      - POSTGRES_PASSWORD=agentic123
+      - POSTGRES_DB=agentic
     volumes:
       - postgres_data:/var/lib/postgresql/data
-      - ./docker/init-scripts:/docker-entrypoint-initdb.d
     ports:
       - "5432:5432"
     networks:
@@ -156,7 +169,7 @@ services:
       timeout: 10s
       retries: 3
 
-  # Nginx Reverse Proxy (optional, for production-like setup)
+  # Nginx Reverse Proxy
   nginx:
     image: nginx:alpine
     container_name: nginx

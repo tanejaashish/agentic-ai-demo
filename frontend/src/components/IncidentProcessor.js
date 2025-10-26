@@ -79,13 +79,29 @@ const IncidentProcessor = () => {
     }
   };
 
+  //const handleFeedback = async (rating) => {
+  //  if (!response?.incident_id) return;
+
+  //  try {
+  //    await incidentService.submitFeedback(response.incident_id, { rating, helpful: rating >= 3 });
+  //    toast.success('Thank you for your feedback!');
+  //  } catch (error) {
+  //    toast.error('Failed to submit feedback');
+  //  }
+  //};
+
   const handleFeedback = async (rating) => {
     if (!response?.incident_id) return;
 
     try {
-      await incidentService.submitFeedback(response.incident_id, { rating, helpful: rating >= 3 });
+      await incidentService.submitFeedback(response.incident_id, { 
+        rating, 
+        helpful: rating >= 3,
+        comments: ""
+      });
       toast.success('Thank you for your feedback!');
     } catch (error) {
+      console.error('Feedback error:', error);
       toast.error('Failed to submit feedback');
     }
   };

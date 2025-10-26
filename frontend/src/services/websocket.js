@@ -1,89 +1,31 @@
 /**
- * WebSocket Service - Real-time communication
- * Handles WebSocket connections for live metrics and updates
+ * WebSocket Service - Disabled for demo
+ * This version gracefully handles the lack of WebSocket connection
+ * All functionality continues to work via REST API
  */
-
-import { io } from 'socket.io-client';
-
-const WS_URL = process.env.REACT_APP_WS_URL || 'http://localhost:8000';
 
 class WebSocketService {
   constructor() {
     this.socket = null;
     this.connected = false;
     this.listeners = new Map();
+    console.log('WebSocket service initialized (disabled mode - using REST API only)');
   }
 
   /**
-   * Connect to WebSocket server
+   * Connect to WebSocket server (disabled - no-op)
    */
   connect() {
-    if (this.socket && this.connected) {
-      console.log('WebSocket already connected');
-      return;
-    }
-
-    this.socket = io(WS_URL, {
-      transports: ['websocket', 'polling'],
-      reconnection: true,
-      reconnectionDelay: 1000,
-      reconnectionAttempts: 5,
-    });
-
-    this.socket.on('connect', () => {
-      console.log('WebSocket connected');
-      this.connected = true;
-      this.emit('connection', { status: 'connected' });
-    });
-
-    this.socket.on('disconnect', () => {
-      console.log('WebSocket disconnected');
-      this.connected = false;
-      this.emit('connection', { status: 'disconnected' });
-    });
-
-    this.socket.on('connect_error', (error) => {
-      console.error('WebSocket connection error:', error);
-      this.emit('connection', { status: 'error', error });
-    });
-
-    // Listen for metrics updates
-    this.socket.on('metrics_update', (data) => {
-      this.emit('metrics', data);
-    });
-
-    // Listen for agent status updates
-    this.socket.on('agent_status', (data) => {
-      this.emit('agent_status', data);
-    });
-
-    // Listen for incident updates
-    this.socket.on('incident_update', (data) => {
-      this.emit('incident_update', data);
-    });
-
-    // Listen for learning updates
-    this.socket.on('learning_update', (data) => {
-      this.emit('learning_update', data);
-    });
-
-    // Listen for alert notifications
-    this.socket.on('alert', (data) => {
-      this.emit('alert', data);
-    });
-
-    return this.socket;
+    console.log('WebSocket disabled - using REST API polling instead');
+    // Don't actually connect, just return
+    return null;
   }
 
   /**
    * Disconnect from WebSocket server
    */
   disconnect() {
-    if (this.socket) {
-      this.socket.disconnect();
-      this.socket = null;
-      this.connected = false;
-    }
+    // No-op
   }
 
   /**
@@ -119,7 +61,7 @@ class WebSocketService {
   }
 
   /**
-   * Emit event to listeners
+   * Emit event to listeners (internal use)
    */
   emit(event, data) {
     const callbacks = this.listeners.get(event);
@@ -135,42 +77,39 @@ class WebSocketService {
   }
 
   /**
-   * Send message to server
+   * Send message to server (disabled - no-op)
    */
   send(event, data) {
-    if (this.socket && this.connected) {
-      this.socket.emit(event, data);
-    } else {
-      console.warn('WebSocket not connected, cannot send message');
-    }
+    // No-op - WebSocket disabled
+    console.debug('WebSocket send skipped (disabled mode)');
   }
 
   /**
-   * Request metrics update
+   * Request metrics update (disabled - no-op)
    */
   requestMetrics() {
-    this.send('request_metrics', {});
+    // No-op
   }
 
   /**
-   * Subscribe to specific incident updates
+   * Subscribe to specific incident updates (disabled - no-op)
    */
   subscribeToIncident(incidentId) {
-    this.send('subscribe_incident', { incident_id: incidentId });
+    // No-op
   }
 
   /**
-   * Unsubscribe from incident updates
+   * Unsubscribe from incident updates (disabled - no-op)
    */
   unsubscribeFromIncident(incidentId) {
-    this.send('unsubscribe_incident', { incident_id: incidentId });
+    // No-op
   }
 
   /**
    * Check if connected
    */
   isConnected() {
-    return this.connected;
+    return false;
   }
 }
 
