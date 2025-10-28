@@ -243,7 +243,7 @@ docker exec backend python tests/test_cag_effectiveness.py
 
 - [RAG Paper](https://arxiv.org/abs/2005.11401)
 - [CAG Concepts](https://arxiv.org/abs/2401.15884)
-- [Agentic AI Patterns](https://www.anthropic.com/research/agents)
+- [Agentic AI Patterns]
 
 ## 🤝 Support
 
