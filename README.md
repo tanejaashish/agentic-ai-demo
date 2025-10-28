@@ -257,5 +257,3 @@ For demo issues or questions:
 MIT License - Feel free to use for educational purposes
 
 ---
-
-**Ready to impress your students with cutting-edge AI technology! 🚀**
